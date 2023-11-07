@@ -64,20 +64,29 @@ function createDivsForColors(colorArray) {
 function handleCardClick(e) {
   if (noClicking) return;
   if (e.target.classList.contains("flipped")) return;
+  // console.log("yes");
 
   let currentCard = e.target;
   currentCard.style.backgroundColor = currentCard.classList[0];
 
   if (!card1 || !card2) {
     currentCard.classList.add("flipped");
-    card1 = card1 || currentCard;
-    (card2 == currentCard) === card1 ? null : currentCard;
+    if (!card1) {
+      card1 = currentCard;
+    } else {
+      card2 = currentCard;
+    }
   }
 
+  //   card1 = card1 || currentCard;
+  //   (card2 = currentCard) === card1 ? null : currentCard; // figure out the errorc
+  // }
+  //did not hit if statement
   if (card1 && card2) {
-    noClicking = true;
+    // noClicking = true;
     let gif1 = card1.className;
     let gif2 = card2.className;
+    // console.log("line 82");
 
     if (gif1 === gif2) {
       cardsFlipped += 2;
@@ -87,6 +96,8 @@ function handleCardClick(e) {
       card2 = null;
       noClicking = false;
     } else {
+      // console.log("91");
+      noClicking = true;
       setTimeout(function () {
         card1.style.backgroundColor = "";
         card2.style.backgroundColor = "";
@@ -98,7 +109,7 @@ function handleCardClick(e) {
       }, 1000);
     }
   }
-  if (cardsFlipped === COLORS.length) alert("game over!");
+  if (cardsFlipped === COLORS.length) alert("Game Over!");
 }
 createDivsForColors(shuffledColors);
 
